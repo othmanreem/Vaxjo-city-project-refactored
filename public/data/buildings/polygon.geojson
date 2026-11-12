@@ -1,0 +1,46 @@
+{
+    "type": "Feature",
+    "properties": {
+      "osm_id": "2021235",
+      "osm_way_id": null,
+      "name": "Forskaren",
+      "type": "multipolygon",
+      "aeroway": null,
+      "amenity": null,
+      "admin_level": null,
+      "barrier": null,
+      "boundary": null,
+      "building": "Customized Building",
+      "craft": null,
+      "geological": null,
+      "historic": null,
+      "land_area": null,
+      "landuse": null,
+      "leisure": null,
+      "man_made": null,
+      "military": null,
+      "natural": null,
+      "office": null,
+      "place": null,
+      "shop": null,
+      "sport": null,
+      "tourism": null,
+      "other_tags": null,
+      "_count": 1417.0,
+      "_sum": 13903.683364868164,
+      "_mean": 9.8120560090812727
+    },
+    "geometry": {
+      "type": "MultiPolygon",
+      "coordinates": [
+        [
+          [
+            [  ]
+          ],
+          [
+            [ ]
+          ]
+        ]
+      ]
+    }
+  }
