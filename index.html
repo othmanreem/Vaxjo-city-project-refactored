@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Explorer | Växjö Urban Explorer</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="welcome.html"
+        ><span class="brand-icon">◈</span
+        ><span>VÄXJÖ <strong>URBAN EXPLORER</strong></span></a
+      >
+      <nav class="topnav" aria-label="Main navigation">
+        <a href="welcome.html" class="">Overview</a
+        ><a href="index.html" class="active">Explorer</a
+        ><a href="about.html" class="">About</a
+        ><a href="info.html" class="">Research</a>
+      </nav>
+      <span class="top-pill"
+        ><span class="live-dot"></span> Urban analytics platform</span
+      >
+    </header>
+    <div class="workspace">
+      <aside id="mySidebar" class="sidebar">
+        <div class="sidebar-top">
+          <div>
+            <div class="eyebrow">WORKSPACE</div>
+            <h1>Map explorer</h1>
+            <p>Explore Växjö's built environment and access to services.</p>
+          </div>
+          <button
+            class="icon-btn"
+            id="closebtn"
+            title="Collapse sidebar"
+            aria-label="Collapse sidebar"
+          >
+            ‹
+          </button>
+        </div>
+        <section class="panel-section">
+          <div class="section-heading">
+            <span class="section-icon">◫</span>
+            <h2>Map layers</h2>
+          </div>
+          <p class="hint">Toggle the information shown on the map.</p>
+          <div id="controls" class="layer-list">
+            <label class="layer-option"
+              ><span><span class="layer-symbol">▦</span> Base map</span
+              ><input
+                type="checkbox"
+                id="mapLayer"
+                name="layer"
+                value="mapLayer"
+                checked
+            /></label>
+            <label class="layer-option"
+              ><span><span class="layer-symbol">▥</span> 3D buildings</span
+              ><input type="checkbox" id="geojson" name="layer" value="geojson"
+            /></label>
+            <label class="layer-option"
+              ><span><span class="layer-symbol">T</span> Building labels</span
+              ><input
+                type="checkbox"
+                id="textLayer"
+                name="layer"
+                value="textLayer"
+            /></label>
+            <label class="layer-option"
+              ><span><span class="layer-symbol">⌁</span> Road network</span
+              ><input
+                type="checkbox"
+                id="roadLayer"
+                name="layer"
+                value="roadLayer"
+            /></label>
+            <label class="layer-option"
+              ><span
+                ><span class="layer-symbol">⌂</span> Residential buildings</span
+              ><input
+                type="checkbox"
+                id="residential-buildings"
+                name="layer"
+                value="residential-buildings"
+            /></label>
+            <label class="layer-option"
+              ><span
+                ><span class="layer-symbol" style="color: #e9a353">●</span>
+                Schools</span
+              ><input type="checkbox" id="schools" name="layer" value="schools"
+            /></label>
+            <label class="layer-option"
+              ><span
+                ><span class="layer-symbol" style="color: #e26d7b">✚</span>
+                Hospitals</span
+              ><input
+                type="checkbox"
+                id="hospitals"
+                name="layer"
+                value="hospitals"
+            /></label>
+          </div>
+        </section>
+        <section class="panel-section">
+          <div class="section-heading">
+            <span class="section-icon">▤</span>
+            <h2>Building elevation</h2>
+          </div>
+          <div class="slider-line">
+            <label for="filter-slider">Height multiplier</label
+            ><strong><span id="value-display">1</span>×</strong>
+          </div>
+          <input
+            id="filter-slider"
+            class="slider"
+            type="range"
+            min="1"
+            max="10"
+            value="1"
+          />
+          <div class="range-ends"><span>1×</span><span>10×</span></div>
+        </section>
+        <section class="panel-section">
+          <div class="section-heading">
+            <span class="section-icon">◈</span>
+            <h2>Accessibility scores</h2>
+          </div>
+          <p class="hint">Color buildings by distance to essential services.</p>
+          <label class="layer-option"
+            ><span>Nearest school</span
+            ><input
+              type="checkbox"
+              id="nearest_school"
+              name="score"
+              class="score"
+              value="nearest_school" /></label
+          ><label class="layer-option"
+            ><span>Nearest hospital</span
+            ><input
+              type="checkbox"
+              id="nearest_hospital"
+              name="score"
+              class="score"
+              value="nearest_hospital"
+          /></label>
+        </section>
+        <details id="new-building-form" class="panel-section expandable">
+          <summary>
+            <span class="section-icon">＋</span> Create a building
+            <span class="chevron">⌄</span>
+          </summary>
+          <p class="hint">
+            Click the map to fill the location, then adjust its dimensions.
+          </p>
+          <form id="formId">
+            <div id="loading" style="display: none" class="loading">
+              Calculating accessibility…
+            </div>
+            <div id="building" class="small-note">
+              Select a location on the base map.
+            </div>
+            <div class="field-grid">
+              <label
+                >Latitude<input
+                  id="latitude"
+                  type="number"
+                  step="any"
+                  required /></label
+              ><label
+                >Longitude<input
+                  id="longitude"
+                  type="number"
+                  step="any"
+                  required /></label
+              ><label
+                >Diameter (m)<input
+                  id="radius"
+                  type="number"
+                  min="1"
+                  step="any"
+                  required /></label
+              ><label
+                >Height<input
+                  id="height"
+                  type="number"
+                  min="1"
+                  step="any"
+                  required /></label
+              ><label
+                >Sides<input
+                  id="sides"
+                  type="number"
+                  min="3"
+                  max="64"
+                  step="1"
+                  required
+              /></label>
+            </div>
+            <button id="building-btn" class="primary-btn" type="submit">
+              ＋ Create building
+            </button>
+            <div id="indexes" class="metric-list">
+              <div id="fairness"></div>
+              <div id="discrimination"></div>
+            </div>
+          </form>
+        </details>
+        <section id="path-elems-container" class="panel-section">
+          <div class="section-heading">
+            <span class="section-icon">↗</span>
+            <h2>Route planner</h2>
+          </div>
+          <p class="hint">
+            Click the button, then select two locations on the map to calculate
+            a driving route.
+          </p>
+          <button id="path-btn" class="outline-btn">↗ Create route</button>
+          <div id="distance" class="route-result" aria-live="polite"></div>
+        </section>
+        <div class="sidebar-footer">
+          <span class="live-dot"></span> Växjö, Sweden
+          <span>56.88° N · 14.81° E</span>
+        </div>
+      </aside>
+      <main class="map-stage">
+        <div class="map-top">
+          <button id="openbtn" class="icon-btn" aria-label="Open sidebar">
+            ☰
+          </button>
+          <div>
+            <span class="eyebrow">GEOSPATIAL ANALYSIS</span>
+            <h2>Växjö city map</h2>
+          </div>
+          <span class="map-chip">3D Interactive Map</span>
+        </div>
+        <div id="map"><canvas id="deckGlCanvas"></canvas></div>
+        <div id="app-status" class="error-banner" hidden></div>
+        <div class="map-bottom">
+          <span>◎ Växjö, Kronoberg County</span
+          ><span>Scroll to zoom · Drag to pan · Click to explore</span>
+        </div>
+        <div id="info-elem" class="insight-panel">
+          <h3>Building insights</h3>
+          <div id="instructions"></div>
+          <div id="legendDiv"></div>
+          <div id="school-distance-output"></div>
+          <div id="hospital-distance-output"></div>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="/app/app.js"></script>
+  </body>
+</html>
